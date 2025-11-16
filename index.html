@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sürpriz Link</title>
+    <style>
+        /* Yeniden Başlatma Ekranı Stilleri */
+        #restart-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000; /* Siyah Arka Plan */
+            color: #FFFFFF; /* Beyaz Yazı */
+            text-align: center;
+            padding-top: 20%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            z-index: 9999;
+            user-select: none; /* Metin seçmeyi engeller */
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.5em;
+        }
+        .main-content {
+            padding: 50px;
+            text-align: center;
+        }
+        .prank-button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <h2>Önemli Video / Çok Gizli Belge</h2>
+        <p>Devam etmek için aşağıdaki butona tıklayın.</p>
+        <button class="prank-button" onclick="simulateRestart()">👉 Tıklayın ve Açın!</button>
+    </div>
+
+    <div id="restart-screen">
+        <h1>🔄 Windows Güncellemeleri Yapılıyor...</h1>
+        <p>Lütfen bilgisayarınızı kapatmayın. %0 tamamlandı.</p>
+    </div>
+
+    <script>
+        function simulateRestart() {
+            const screen = document.getElementById('restart-screen');
+            const pElement = screen.querySelector('p');
+            
+            // Ana içeriği gizle ve şaka ekranını göster
+            document.querySelector('.main-content').style.display = 'none';
+            screen.style.display = 'block';
+
+            let percent = 0;
+            
+            // % ilerleme animasyonu
+            const interval = setInterval(() => {
+                percent += 1;
+                pElement.textContent = `Lütfen bilgisayarınızı kapatmayın. %${percent} tamamlandı.`;
+                
+                if (percent >= 100) {
+                    clearInterval(interval);
+                    
+                    // 2 saniye sonra şakayı sonlandır
+                    setTimeout(() => {
+                        screen.style.display = 'none';
+                        document.querySelector('.main-content').style.display = 'block'; // Ana içeriği geri getir
+                        alert("Büyük şaka! Cihazınız yeniden başlatılmadı. 😉");
+                    }, 2000);
+                }
+            }, 70); // Hızı ayarlayabilirsiniz (daha hızlı veya yavaş ilerleme için)
+        }
+    </script>
+
+</body>
+</html>
